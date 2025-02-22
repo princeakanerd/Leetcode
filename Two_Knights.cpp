@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define ll long long
+#define gc getchar_unlocked
+#define fo(i, n) for (i = 0; i < n; i++)
+#define Fo(i, k, n) for (i = k; k < n ? i < n : i > n; k < n ? i += 1 : i -= 1)
+#define si(x) scanf("%d", &x)
+#define sl(x) scanf("%lld", &x)
+#define ss(s) scanf("%s", s)
+#define pi(x) printf("%d\n", x)
+#define pl(x) printf("%lld\n", x)
+#define ps(s) printf("%s\n", s)
+#define deb(x) cout << #x << "=" << x << endl
+#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
+#define pb push_back
+#define mp make_pair
+#define F first
+#define S second
+#define all(x) x.begin(), x.end()
+#define clr(x) memset(x, 0, sizeof(x))
+#define sortall(x) sort(all(x))
+#define tr(it, a) for (auto it = a.begin(); it != a.end(); it++)
+#define PI 3.1415926535897932384626
+typedef pair<int, int> pii;
+typedef pair<ll, ll> pl;
+typedef vector<int> vi;
+typedef vector<ll> vl;
+typedef vector<pii> vpii;
+typedef vector<pl> vpl;
+typedef vector<vi> vvi;
+typedef vector<vl> vvl;
+bool isvalid(ll i , ll j , ll n) {
+    if(i < 1 || j < 1 || i > n || j > n) return false ;
+    return true ;
+}
+
+ll calculateforn(ll n) {
+
+    vvl dir { {-2 , -1} , {-1 , -2}  , {2 , -1} , {-1 , 2} , { -2 , 1} , {1 , -2} , {1 , 2} , {2 , 1}} ;
+    ll count = 0 ;
+    for(int i = 1 ; i <= n ; i++ ) {
+        for(int j = 1 ; j <= n ; j++ ) {
+            for(auto it : dir) {
+                ll newi = i + it[0] ;
+                ll newj = j + it[1] ;
+                if(isvalid(newi , newj , n)) {  
+                    count ++ ;
+                }
+            }
+        }
+    }
+    
+    return count / 2;
+}
+
+
+void solve() {
+  ll n;
+  cin >> n;
+
+  for(int i = 1 ; i <= n; i++ ) {
+    ll num = i * i ;
+    ll ans = num * (num -1) ;
+    ans /= 2;
+
+    cout << ans - calculateforn(i) << endl; ;
+        
+  }
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int tc = 1;
+    // Uncomment the next line to read multiple test cases.
+    // cin >> tc;
+    for (int t = 1; t <= tc; t++) {
+        
+        // cout << "Case #" << t << ": ";
+        solve();
+    }
+    return 0;
+}
