@@ -1,25 +1,26 @@
-const int mod = 1e9 + 7;
-int mod_add(int a, int b) {a = a % mod; b = b % mod; return (((a + b) % mod) + mod) % mod;}
-
 class Solution {
 public:
+    int MOD = 1e9 + 7 ;
     int lengthAfterTransformations(string s, int t) {
-        int nums[26] = {0};
-        for (char ch : s) nums[ch - 'a']++;
-        while (t--) {
-            int cur[26] = {0};
-            for (int j = 0; j < 26; j++) {
-                if (j == 25 && nums[j] > 0) {
-                    cur[0] = mod_add(cur[0], nums[j]);
-                    cur[1] = mod_add(cur[1], nums[j]);
+        vector<int> nums(26 , 0) ;
+        for(auto it : s) nums[it - 'a'] ++ ;
+
+        while(t--) {
+            vector<int> temp (26 , 0) ;
+            for(int i = 0 ;i < 26 ; i++ ) {
+                
+                if(i == 25) {
+                    temp[0] = (temp[0] + nums[i]) % MOD  , temp[1] = (temp[1] + nums[i]) % MOD ;
                 } else {
-                    if (j < 25) cur[j + 1] = mod_add(cur[j + 1], nums[j]);
+                    temp[i + 1] = (temp[i + 1] + nums[i]) % MOD ;
                 }
             }
-            for (int j = 0; j < 26; j++) nums[j] = cur[j];
+            nums = temp ;
         }
-        int ans = 0;
-        for (int i : nums) ans = mod_add(ans, i);
-        return (int)ans;
+        long long ans = 0 ;
+        for(int i = 0 ; i < 26 ; i++ ) {
+            ans = (ans + nums[i]) % MOD ;
+        }   
+        return ans ;
     }
 };
