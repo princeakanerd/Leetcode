@@ -13,7 +13,7 @@ public:
 
         for(int j = 0 ; j < n ; j++ ){
             
-            while(1LL * (j - i + 1) * nums[j] - (pfx[j + 1] - pfx[i]) > k)i ++ ;
+            if(1LL * (j - i + 1) * nums[j] - (pfx[j + 1] - pfx[i]) > k)i ++ ;
             ans = max(ans , j - i + 1) ;
         }
         return ans;
