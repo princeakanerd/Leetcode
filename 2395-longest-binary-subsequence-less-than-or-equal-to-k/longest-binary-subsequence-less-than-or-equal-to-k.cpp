@@ -24,8 +24,6 @@ public:
             }
             if(mul > k || num > k) {idx = i ;break ;}
             mul *= 2;
-
-            
         }    
 
         for(int i = 0 ;i <= idx ; i++ ){
