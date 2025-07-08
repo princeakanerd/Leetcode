@@ -19,7 +19,14 @@ public:
         vector<int> next(n , -1) ;
 
         for(int i = 0 ; i < n ; i++ ){
-            next[i] = upper_bound(events.begin() + 1, events.end() , vector<int>{events[i][1] + 1, 0 , 0}) - events.begin() ;
+            next[i] = upper_bound(
+                events.begin(),
+                events.end(),
+                vector<int>{events[i][1]},
+                [](const vector<int>& a, const vector<int>& b) {
+                    return a[0] < b[0];
+                }
+            ) - events.begin();
         }
         return helper(0 , events , k , -1 , dp , next) ;
     }
