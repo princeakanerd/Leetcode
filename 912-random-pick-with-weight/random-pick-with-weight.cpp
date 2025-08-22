@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> pfx;
     
-
+    int maxi = -1 ;
     Solution(vector<int>& w) {
          srand(time(0));
         int n = w.size() ;
@@ -10,12 +10,13 @@ public:
             pfx.push_back(it + (pfx.size() ? pfx.back() : 0) ) ;
             cout << pfx.back() << " " ;
         }
+        maxi = pfx.back() ;
 
     }
     
     int pickIndex() {
        
-        int maxi = pfx.back() ;
+         
         int num = rand() % maxi + 1 ;
         int idx = lower_bound(pfx.begin(), pfx.end(), num) - pfx.begin() ;
         return idx ;
