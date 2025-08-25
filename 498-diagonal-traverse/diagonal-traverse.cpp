@@ -12,7 +12,7 @@ public:
                 tempi-- ;
                 tempj++ ;
             }
-            if(i % 2) reverse(temp.begin() , temp.end()) ;
+            if(flip) reverse(temp.begin() , temp.end()) ;
             flip = 1 - flip ;
             for(auto it : temp)res.push_back(it) ;
         }
