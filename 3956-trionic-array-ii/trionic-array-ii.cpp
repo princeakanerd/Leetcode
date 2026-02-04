@@ -3,8 +3,6 @@ class Solution {
 public:
     ll comp(int li, int lj, int ri, int rj, vector<int>&nums) {
         long long mini = 0 ;
-
-        cout << li << " " << lj << " " << ri << " " << rj << endl;
         ll sum = 0 ;
        
         for(int i = li ; i <= lj - 2; i++ ){
