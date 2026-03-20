@@ -1,29 +1,29 @@
 class Solution {
 public:
     vector<vector<int>> minAbsDiff(vector<vector<int>>& grid, int k) {
-        int m = grid.size() , n = grid[0].size() ;
-        vector<vector<int>> ans(m - k + 1) ;
-        for(int i = 0 ; i < m - k + 1  ; i++ ) {
-            for(int j = 0 ;j < n - k + 1 ; j++ ) {
-                set<int> st ;
-                for(int curri = i ; curri < i + k ; curri ++ ){
-                    for(int currj = j ; currj < j + k ; currj ++ ) {
-                        st.insert(grid[curri][currj]) ;
+        int n = grid.size(), m = grid[0].size() ;
+        vector<vector<int>> res(n - k + 1, vector<int>(m - k + 1, -1)) ;
+        for(int i = 0 ; i <= n - k ; i++ ){
+            for(int j = 0 ; j <= m - k ; j++ ){
+                vector<int> temp ;
+                for(int ii = i ; ii < i + k ; ii ++ ){
+                    for(int jj = j ; jj < j + k ; jj ++ ){
+                        temp.push_back(grid[ii][jj]) ;
                     }
                 }
-                vector<int> temp (st.begin() , st.end()) ;
 
-                sort(temp.begin() , temp.end()) ;
-                int res = INT_MAX ;
-                for(auto it : temp) cout << it << " " ;
-
-                for(int i = 1 ; i < temp.size() ; i++ ) {
-                    res = min(abs(temp[i] - temp[i - 1]) , res) ;
+                sort(temp.begin(), temp.end()) ;
+                int mini = INT_MAX ;
+                for(int t = 1; t < temp.size(); t++ ){
+                    if(temp[t] != temp[t - 1])
+                         mini = min(mini, temp[t] - temp[t - 1]) ;
                 }
-                if(res == INT_MAX) ans[i].push_back(0) ;
-                else ans[i].push_back(res) ;
+
+                res[i][j] = (mini == INT_MAX ? 0 : mini) ;
+
             }
         }
-        return ans;
+
+        return res;
     }
 };
