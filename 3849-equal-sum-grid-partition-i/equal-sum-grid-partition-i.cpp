@@ -1,38 +1,28 @@
 class Solution {
 public:
     bool canPartitionGrid(vector<vector<int>>& grid) {
-        int m = grid.size() , n = grid[0].size() ;
-        vector<long long> rowsum(m) ,colsum(n) ;
-        long long totalsum = 0 ;
-        for(int i = 0 ;i < m ; i++ ) {
-            long long sum = 0 ;
-            for(int j = 0 ; j < n ; j++ ) {
-                sum += grid[i][j] ;
-                totalsum += grid[i][j] ;
-            }
-            rowsum[i] = sum ;
-        }
-
-        
-
-        for(int j = 0 ;j < n ; j++ ) {
-            long long sum = 0 ;
-            for(int i = 0 ; i < m ; i++ ) {
+        int n = grid.size()  , m = grid[0].size() ;
+        long long sum = 0 ;
+        for(int i = 0 ; i < n ; i++ ){
+            for(int j = 0 ; j < m ;j++ ){
                 sum += grid[i][j] ;
             }
-            colsum[j] = sum ;
         }
+        long long curr = 0 ;
+        for(int i = 0 ; i < n ;i++ ){
+            for(int j = 0 ; j < m ;j++ ){
+                curr += grid[i][j] ;
+            }
 
-        long long currsum = 0;
-        for(int i = 0 ;i < m ; i++ ) {
-            if(currsum == totalsum - currsum) return true ;
-            currsum += rowsum[i] ;
+            if(curr == sum - curr) return true ;
         }
+        curr = 0 ;
+        for(int j = 0 ; j < m ; j++ ){
+            for(int i = 0; i < n ; i++ ){
+                curr += grid[i][j] ;
+            }
 
-        currsum = 0 ;
-        for(int i = 0 ; i < n ; i++ ) {
-            if(currsum == totalsum - currsum) return true ;
-            currsum += colsum[i] ;
+            if(curr == sum - curr) return true ;
         }
         return false ;
     }
