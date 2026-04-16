@@ -24,15 +24,31 @@ public:
 
         ll low = 1, high = 1e6 , ans = -1 ;
 
-        while(low <= high){
-            ll mid = low + (high - low) / 2;
+        vector<vector<int>> dp(n, vector<int>(m, INT_MAX)) ;
 
-            if(check(mid, dungeon)){
-                ans = mid ;
-                high = mid - 1;
-            } else low = mid + 1 ;
+        for(int i = 0;i < n ; i++ ){
+            for(int j = 0 ; j < m ; j++ ){
+                dungeon[i][j] = - dungeon[i][j] ;
+            }
         }
 
-        return ans ;
+        dp[n - 1][m - 1] = max(1, dungeon[n - 1][m - 1] + 1) ;
+        for(int i= n - 1; i >= 0 ; i-- ){
+            for(int j = m - 1 ; j >= 0 ; j-- ){
+                if(i == n - 1 && j == m - 1) continue ;
+
+                if(i < n - 1) {
+                    int num = max(1, dp[i + 1][j] + dungeon[i][j]) ;
+                    dp[i][j] = min(num, dp[i][j]) ;
+                }
+
+                if(j < m - 1) {
+                    int num = max(1, dp[i][j + 1] + dungeon[i][j]) ;
+                    dp[i][j] = min(num, dp[i][j]) ;
+                }
+            }
+        }
+
+        return dp[0][0] ;
     }
 };
